@@ -1,4 +1,5 @@
-
+- MIT Database Simple Java: https://github.com/MIT-DB-Class/simple-db-hw-2021/tree/master
+- https://github.com/dborchard/tiny-db (utama ini)
 ## Pendahuluan: Memulai Perjalanan Membangun "Mesin" Data
 
 Selamat datang di bab pertama dalam perjalanan kita membangun "Wheel DB", sebuah database relasional dari nol. Proyek ini lebih dari sekadar latihan pemrograman; ini adalah sebuah ekspedisi ke jantung sistem data modern. Hampir setiap aplikasi yang kita gunakan sehari-hari, mulai dari platform media sosial hingga sistem perbankan global, ditenagai oleh database. Memahami cara kerja internalnya adalah pembeda antara seorang pengembang aplikasi dan seorang arsitek sistem yang andal.
