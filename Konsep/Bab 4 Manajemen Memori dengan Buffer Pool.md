@@ -57,7 +57,7 @@ Kinerja disk, terutama SSD, sangat bergantung pada pola akses. Pembacaan sekuens
 
 ### 4.1.2 Memperkenalkan Buffer Pool: Cache Cerdas untuk Database Anda
 
-Secara formal, `Buffer Pool` adalah sebuah area di memori utama (RAM) yang dialokasikan oleh sistem database untuk menjadi _cache_ bagi halaman-halaman (_pages_) yang dibaca dari disk [4]. Ia berfungsi sebagai perantara antara _Query Processor_ (yang meminta data) dan `StorageEngine` (yang mengambil data dari penyimpanan fisik).
+Secara formal, `Buffer Pool` adalah sebuah area di memori utama (RAM) yang dialokasikan oleh sistem database untuk menjadi _cache_ bagi halaman-halaman (_pages_) yang dibaca dari disk [4]. Ia berfungsi sebagai perantara antara _Query Engine_ (yang meminta data) dan `StorageEngine` (yang mengambil data dari penyimpanan fisik).
 
 Mekanisme kerjanya pada dasarnya sederhana:
 
@@ -77,7 +77,7 @@ Sekarang kita akan beralih dari teori ke praktik. Membangun `BufferPoolManager` 
 
 **Komponen Inti:**
 
-1.  `pages`: Sebuah array dari objek `Page`. Array ini adalah representasi fisik dari `Buffer Pool` itu sendiri. Setiap elemen dalam array ini disebut `frame`.
+1.  `pages`: Sebuah array dari objek `Page`. Array ini adalah representasi fisik dari `Buffer Pool` itu sendiri. Setiap elemen dalam array ini disebut `frame` yang memiliki indeks `FrameId`.
 2.  `page_table`: Sebuah `HashMap<PageId, FrameId>` untuk pemetaan cepat dari `PageId` ke `FrameId` (indeks dalam array `pages`).
 3.  `free_list`: Sebuah `Queue` atau `Stack` yang berisi `FrameId` dari frame yang saat ini kosong.
 4.  `replacer`: Sebuah objek yang mengimplementasikan kebijakan penggantian halaman, seperti `LRUReplacer`.
