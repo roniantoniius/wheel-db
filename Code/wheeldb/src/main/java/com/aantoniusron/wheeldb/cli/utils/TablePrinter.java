@@ -3,6 +3,8 @@ package com.aantoniusron.wheeldb.cli.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aantoniusron.wheeldb.server.b_query_engine.common.TableDto;
+
 // class deskripsi suatu Table
 
 public class TablePrinter {
@@ -51,7 +53,7 @@ public class TablePrinter {
 		
 		// updae lebar kolom melalui perbandingan terhadap isi data di koloom tsb
 		for (Baris baris: barisData) {
-			int indeksKol = 0;
+			int indeksKol = 0; 
 			
 			for (String isi: baris.nilaiNilai) {
 				Kolom kolom = kolomKolom.get(indeksKol);
@@ -70,4 +72,106 @@ public class TablePrinter {
 	}
 	
 	// other method soon
+	public void render() {
+		StringBuilder strBuilder = new StringBuilder();
+		
+		tulisGarisBatas(kolomKolom, strBuilder);
+		
+		tulisNamaKolum(kolomKolom, strBuilder);
+		
+		tulisGarisBatas(kolomKolom, strBuilder);
+		
+		tulisNilai(barisData, kolomKolom, strBuilder);
+		
+		
+		
+	}
+	
+	private void tulisNamaKolum(final List<Kolom> koloms, final StringBuilder strBuilder) {
+		strBuilder.append('|');
+		
+		for (Kolom kolom: koloms) {
+			// string formating to list of tables divided by vertical line
+			strBuilder.append(String.format(" %-" + kolom.lebar + "s", kolom.nama));
+			strBuilder.append("|");
+		}
+		
+		strBuilder.append('\n');
+	}
+	
+	private void tulisGarisBatas(final List<Kolom> koloms, final StringBuilder strBuilder) {
+		// untuk garis horizontal pembatas
+		strBuilder.append('+');
+		
+		for (Kolom kolom: koloms) {
+			strBuilder.append(String.format("%-" + (kolom.lebar + 1) + "s", "").replace(' ', '-'));
+			strBuilder.append("+");
+		}
+		
+		strBuilder.append("+");
+	}
+	
+	
+	private void tulisNilai(final List<Baris> barisData, final List<Kolom> daftarKolom, final StringBuilder strBuilder) {
+		// i want to write eaach value in this cli
+		for (Baris baris: barisData) {
+			int indeks = 0;
+			strBuilder.append("|");
+			
+			for (String isi: baris.nilaiNilai) {
+				if(isi != null && isi.length() > maksLebarKolom) {
+					isi = isi.substring(0, maksLebarKolom - 1);
+				}
+				strBuilder.append(String.format(" %-" + daftarKolom.get(indeks).lebar + "s", isi));
+				
+				strBuilder.append("|");
+				
+				indeks++;
+			}
+			
+			strBuilder.append("\n");
+		}
+	}
+		
+	// list of method for pring Tablenya
+	public void print(List<String> daftarKolom, List<List<String>> daftarBaris) {
+		TablePrinter tabel = new TablePrinter();
+		tabel.ubahMaksLebarKolom(45);
+		
+		// get every single column
+		for (String namaKolom: daftarKolom) {
+			tabel.ambilKolom().add(new TablePrinter.Kolom(namaKolom));
+		}
+		
+		// get every single of row, and every single of data in that row in that column
+		for (List<String> nilaiBaris: daftarBaris) {
+			
+			TablePrinter.Baris barisKosong = new TablePrinter.Baris();
+			tabel.ambilBaris().add(barisKosong);
+			
+			for (String baris: nilaiBaris) {
+				barisKosong.nilaiNilai.add(baris);
+			}
+		}
+		
+		tabel.hitungLebarKolom();
+		tabel.render();
+		
+	}
+	
+	public void ubahMaksLebarKolom(final int maksLebarKoloms) {
+		this.maksLebarKolom = maksLebarKoloms;
+	}
+	
+	public int getMaksLebarKolom() {
+		return maksLebarKolom;
+	}
+	
+	public List<Kolom> ambilKolom(){
+		return kolomKolom;
+	}
+	
+	public List<Baris> ambilBaris(){
+		return barisData;
+	}
 }
