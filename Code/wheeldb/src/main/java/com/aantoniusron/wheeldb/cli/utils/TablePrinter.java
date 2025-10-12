@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.aantoniusron.wheeldb.server.b_query_engine.common.TableDto;
 
-// class deskripsi suatu Table
+// an class for printing Kolom dan Baris dalam format ascii
 
 public class TablePrinter {
 	// an static class for storing Kolom dan Baris
