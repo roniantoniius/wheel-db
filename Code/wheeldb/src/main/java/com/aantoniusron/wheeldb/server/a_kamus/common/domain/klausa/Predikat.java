@@ -25,13 +25,29 @@ public class Predikat {
 		daftarKetentuan.addAll(predikat.daftarKetentuan);
 	}
 	
-	// method untuk pastiin proses scan sudah selesai (true) atau belum (false)
-	public boolean sudahSelesai(RecordScan scan) {
+	/*
+	 * validasi jika predikat sekarang si Ketentuannya sudah terpenuhi
+	 */
+	public boolean sudahTerpenuhi(RecordScan scan) {
 		for (Ketentuan ketentuan: daftarKetentuan) {
-			if (!ketentuan.sudahSelesai(scan)) 
+			if (!ketentuan.sudahTerpenuhi(scan)) 
 				return false;
 		}
 		return true;
+	}
+	
+	/*
+	 * handle kalau Predikat suatu Ketentuan itu bentuknya "F=c"
+	 * di mana c adalah sebuah nilai String/Integer
+	 */
+	public Konstan samaDenganKonstan(String namaField) {
+		for (Ketentuan k: daftarKetentuan) {
+			Konstan konstan = k.samaDenganKonstan(namaField);
+			if (konstan != null) {
+				return konstan;
+			}
+		}
+		return null;
 	}
 	
 	

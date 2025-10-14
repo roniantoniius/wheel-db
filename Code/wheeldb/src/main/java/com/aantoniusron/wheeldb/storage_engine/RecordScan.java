@@ -14,16 +14,16 @@ public interface RecordScan {
 	public boolean next();
 	
 	// ambil isi/nilai bersifat Integer dari suatu field dalam baris saat ini
-	public int getInt(String fldname);
+	public int getInt(String namaField);
 	
 	// ambil nilai bersifat String dri suatu field pada baris ini
-	public String getString(String fldname);
+	public String getString(String namaField);
 	
 	// ambil nilai dengan suatu tipe data pada baris ini
-	public Konstan getValue(String fldname);
+	public Konstan getValue(String namaField);
 	
 	// method untuk validasi apakah scan punya field tertentu
-	public boolean hasField(String fldname);
+	public boolean hasField(String namaField);
 	
 	// close proses Scan dan subscan yang sedang berjalan
 	public void close();

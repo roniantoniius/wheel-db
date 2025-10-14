@@ -7,6 +7,7 @@ import java.io.Serializable;
 // an comparable Class to its own class
 // an serialisasi class so that able to be converted into byte
 // benefit of serialization is: store this Class into a File, transfer object into different memory
+// contoh Konstan itu "Where Field=c", Field = c disebut konstan karena c either bernilai String/Integer
 public class Konstan implements Comparable<Konstan>, Serializable{
 
 	private static final long serialVersionUID = 1L;

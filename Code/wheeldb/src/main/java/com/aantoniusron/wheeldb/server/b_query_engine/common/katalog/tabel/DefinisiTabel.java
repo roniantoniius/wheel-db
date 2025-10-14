@@ -43,52 +43,52 @@ public class DefinisiTabel {
 	 *   
 	 * param tipe itu tipe data suatu kolom berdasarkan di kelas Konstan
 	 */
-	public void addField(String fldname, int tipe, int panjang) {
-		daftarField.add(fldname);
-		info.put(fldname, new InfoField(tipe, panjang));
+	public void addField(String namaField, int tipe, int panjang) {
+		daftarField.add(namaField);
+		info.put(namaField, new InfoField(tipe, panjang));
 	}
 	
 	/**
 	 * tambah field dengan tipe data int
 	 */
 	
-	public void addIntField(String fldname) {
-		addField(fldname, INTEGER, 0);
+	public void addIntField(String namaField) {
+		addField(namaField, INTEGER, 0);
 	}
 	
 	
-	public void addStrField(String fldname, int panjang) {
-		addField(fldname, VARCHAR, panjang);
+	public void addStrField(String namaField, int panjang) {
+		addField(namaField, VARCHAR, panjang);
 	}
 	
 	/*
 	 * tambah field ke skema sekarang,
 	 * tapi tipe dan panjangnya dari schema yang lain
 	 */
-	public void add(String fldname, DefinisiTabel skema) {
-		int tipe = skema.tipe(fldname);
-		int panjang = skema.panjang(fldname);
-		addField(fldname, tipe, panjang);
+	public void add(String namaField, DefinisiTabel skema) {
+		int tipe = skema.tipe(namaField);
+		int panjang = skema.panjang(namaField);
+		addField(namaField, tipe, panjang);
 	}
 	
 	/*
 	 * return tipe dari suatu field,
 	 * by java.sql.Types
 	 */
-	public int tipe(String fldname) {
-		return info.get(fldname).tipe;
+	public int tipe(String namaField) {
+		return info.get(namaField).tipe;
 	}
 	
-	public int panjang(String fldname) {
-		return info.get(fldname).panjang;
+	public int panjang(String namaField) {
+		return info.get(namaField).panjang;
 	}
 	
 	/*
 	 * tambah semua field dri suatu skema ke skema yang sekarang
 	 */
 	public void addAll(DefinisiTabel skema) {
-		for (String fldname: skema.fields()) {
-			add(fldname, skema);
+		for (String namaField: skema.fields()) {
+			add(namaField, skema);
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class DefinisiTabel {
 	/*
 	 * validasi apakah field ada di skema
 	 */
-	public boolean hasField(String fldname) {
-		return daftarField.contains(fldname);
+	public boolean hasField(String namaField) {
+		return daftarField.contains(namaField);
 	}
 }
