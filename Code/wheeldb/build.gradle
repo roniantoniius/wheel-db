@@ -1,5 +1,6 @@
 plugins {
-	id 'java'
+    id 'java'
+    id 'antlr' // 1. Apply the ANTLR plugin
 }
 
 group = 'com.aantoniusron'
@@ -7,15 +8,15 @@ version = '0.0.1-SNAPSHOT'
 description = 'Wheel DB By Roni Antonius Sinabutar'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
@@ -23,11 +24,39 @@ repositories {
 }
 
 dependencies {
-    // tetap boleh gunakan lombok
+    // Lombok (already there)
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 
+    // ANTLR dependencies
+    // 2. Add ANTLR runtime to the antlr configuration for the tool
+    antlr("org.antlr:antlr4:4.11.1") // Use the version from the POM (or a newer one like 4.13.1)
+    // Add ANTLR runtime to implementation for generated code to compile against
+    implementation("org.antlr:antlr4-runtime:4.11.1") 
+
+    // Database / SQL dependencies
+    // 4. ShardingSphere SQL Parser (contains MySQLStatementBaseVisitor)
+    implementation("org.apache.shardingsphere:shardingsphere-sql-parser-mysql:5.2.1")
+    implementation("org.apache.shardingsphere:shardingsphere-sql-parser-engine:5.2.1")
+
+    // BPlusTree dependency (from the POM)
+    implementation("com.github.davidmoten:bplustree:0.1.4")
+
+    // 3. Apache Calcite dependency
+    implementation("org.apache.calcite:calcite-core:1.32.0")
+
+    // Testing (already there)
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+}
+
+// 5. Configure the ANTLR generation task
+// This task is automatically created by the 'antlr' plugin
+tasks.generateGrammarSource {
+    arguments = [
+        "-package", 
+        "com.aantoniusron.wheeldb.server.a_kamus.impl.grammar",
+        "-visitor" 
+    ]
 }
 
 tasks.test {
