@@ -7,7 +7,7 @@ import com.aantoniusron.wheeldb.storage_engine.impl.data.heap.page.RecordKey;
  * updatable scan
  * *read write
  */
-public interface RecordScanReadWrite {
+public interface RecordScanReadWrite extends RecordScan {
 	/*
 	 *  method-method untuk modifikasi nilai field dari record saat ini
 	 *  sesuai jenis data
