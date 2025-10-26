@@ -2,8 +2,11 @@ package com.aantoniusron.wheeldb.storage_engine;
 
 import com.aantoniusron.wheeldb.server.a_kamus.common.domain.klausa.Konstan;
 
-// interfacce untuk proses scan oleh query
-// ada class Scan utk setiap relasional dalam bentuk operasi aljabar (in query exection)
+/*
+ *  interfacce untuk proses scan oleh query
+ *  *read-only
+ *  ada class Scan utk setiap relasional dalam bentuk operasi aljabar (in query exection)
+ */
 public interface RecordScan {
 	
 	// posisi proses Scan sebelum memproses data baris pertama
